@@ -34,6 +34,8 @@ class ProductModel {
     }
 
     static async store(req) {
+        req.created_at =  new Date();
+        req.updated_at = new Date();
         try {
             const result = await knex('product').insert(
                     req
@@ -67,6 +69,8 @@ class ProductModel {
     }
 
     static async update(body, id) {
+    body.created_at = new Date(body.created_at);
+    body.updated_at = new Date();
         try {
             await knex('product').update(body).where('id', id);
         } catch(exception) {
